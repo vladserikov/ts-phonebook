@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Person } from "./types";
-// import personData from "./data";
+import React, { useState, useEffect } from "react";
+import { PersonType } from "./types";
 import PersonForm from "./components/PersonForm";
 import services from "./services/person";
+import Persons from "./components/Persons";
 
 const App: React.FC = () => {
-  const [state, setState] = useState<Person[]>([]);
+  const [state, setState] = useState<PersonType[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     services.getAll().then(returnData => {
       setState(returnData);
     });
   }, []);
 
-  const addPerson = ({ name, number }: Person) => {
+  const addPerson = ({ name, number }: PersonType) => {
     const newPerson = {
       name,
       number
@@ -22,12 +22,12 @@ const App: React.FC = () => {
     setState(state.concat(newPerson));
   };
 
-  console.log(state);
+  // console.log(state);
   return (
     <div>
-      text
-      <h1>start</h1>
+      <h2>phonebook</h2>
       <PersonForm addPerson={addPerson} />
+      <Persons persons={state} />
     </div>
   );
 };

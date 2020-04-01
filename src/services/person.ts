@@ -1,8 +1,8 @@
-import { Person } from './../types';
+import { PersonType } from './../types';
 import axios, { AxiosResponse } from 'axios';
 const baseUrl: string = `/api/persons`;
 
-const parseData = (response: AxiosResponse): Person[] => {
+const parseData = (response: AxiosResponse): PersonType[] => {
   const { data } = response;
   return data;
 };

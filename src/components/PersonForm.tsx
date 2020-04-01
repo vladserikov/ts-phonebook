@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Person } from "../types";
+import { PersonType } from "../types";
 
 type Props = {
-  addPerson: (obj: Person) => void;
+  addPerson: (obj: PersonType) => void;
 };
 
 const PersonForm: React.FC<Props> = ({ addPerson }) => {
