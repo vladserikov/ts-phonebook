@@ -4,7 +4,7 @@ import personData from "./data";
 import PersonForm from "./components/PersonForm";
 
 const App: React.FC = () => {
-  const [state, setState] = useState<Person[] | null>(null);
+  const [state, setState] = useState<Person[]>([]);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -12,12 +12,21 @@ const App: React.FC = () => {
     }, 200);
   }, []);
 
+  const addPerson = ({ name, number }: Person) => {
+    const newPerson = {
+      name,
+      number
+    };
+
+    setState(state.concat(newPerson));
+  };
+
   console.log(state);
   return (
     <div>
       text
       <h1>start</h1>
-      <PersonForm />
+      <PersonForm addPerson={addPerson} />
     </div>
   );
 };

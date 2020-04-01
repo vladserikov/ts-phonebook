@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { Person } from "../types";
 
-const PersonForm: React.FC = () => {
+type Props = {
+  addPerson: (obj: Person) => void;
+};
+
+const PersonForm: React.FC<Props> = ({ addPerson }) => {
   const [name, setName] = useState<string>("");
   const [number, setNumber] = useState<string>("");
 
   const sendData = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log(name, number);
+    if (name.length === 0 || number.length === 0) {
+      return;
+    }
+    addPerson({ name, number });
   };
   return (
     <form onSubmit={sendData}>
