@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Person } from "./types";
-import personData from "./data";
+// import personData from "./data";
 import PersonForm from "./components/PersonForm";
+import services from "./services/person";
 
 const App: React.FC = () => {
   const [state, setState] = useState<Person[]>([]);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setState(personData);
-    }, 200);
+    services.getAll().then(returnData => {
+      setState(returnData);
+    });
   }, []);
 
   const addPerson = ({ name, number }: Person) => {
