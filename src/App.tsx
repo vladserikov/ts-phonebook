@@ -68,7 +68,10 @@ const App: React.FC = () => {
     <div>
       <h2>phonebook</h2>
       <Notification message={notification} />
-      <PersonForm addPerson={addPerson} />
+      <PersonForm
+        addPerson={addPerson}
+        notificationMessage={notificationMessage}
+      />
       <Persons persons={state} />
     </div>
   );
