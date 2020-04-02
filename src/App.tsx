@@ -64,6 +64,23 @@ const App: React.FC = () => {
     return;
   };
 
+  const deletePerson = async (id: string) => {
+    const person: PersonType | undefined = state.find(p => p.id === id);
+    if (person) {
+      const question = window.confirm(`Delete ${person.name}`);
+      if (question) {
+        try {
+          services.removed(person.id);
+          setState(state.filter(p => (p.id !== person.id ? p : null)));
+        } catch (e) {
+          notificationMessage("fault");
+        }
+      }
+    }
+
+    return;
+  };
+
   return (
     <div>
       <h2>phonebook</h2>
@@ -72,7 +89,8 @@ const App: React.FC = () => {
         addPerson={addPerson}
         notificationMessage={notificationMessage}
       />
-      <Persons persons={state} />
+      <h2>numbers</h2>
+      <Persons persons={state} deletePerson={deletePerson} />
     </div>
   );
 };

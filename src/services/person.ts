@@ -20,6 +20,13 @@ const create = async (obj: PersonBase) => {
 };
 
 // const removed = (id) => axios.delete(`${baseUrl}/${id}`).then(res => res.data);
+const removed = async (id: string) => {
+  try {
+    await axios.delete<AxiosResponse>(`${baseUrl}/${id}`);
+  } catch (e) {
+    return e;
+  }
+};
 
 const update = async (id: string, obj: PersonBase) => {
   const response = await axios.put<AxiosResponse>(`${baseUrl}/${id}`, obj);
@@ -30,6 +37,6 @@ const update = async (id: string, obj: PersonBase) => {
 export default {
   getAll,
   create,
-  // removed,
+  removed,
   update,
 };

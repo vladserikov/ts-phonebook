@@ -1,10 +1,14 @@
 import React from "react";
 import { PersonBase } from "../types";
 
-const Person: React.FC<PersonBase> = ({ name, number }) => {
+interface Personal extends PersonBase {
+  onDelete: () => void;
+}
+
+const Person: React.FC<Personal> = ({ name, number, onDelete }) => {
   return (
     <div>
-      {name} {number}
+      {name} {number} <button onClick={onDelete}>delete</button>
     </div>
   );
 };

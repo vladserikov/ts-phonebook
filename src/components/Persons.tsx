@@ -4,13 +4,19 @@ import Person from "./Person";
 
 type Persons = {
   persons: PersonType[];
+  deletePerson: (id: string) => void;
 };
 
-const Persons: React.FC<Persons> = ({ persons }) => {
+const Persons: React.FC<Persons> = ({ persons, deletePerson }) => {
   return (
     <div>
       {persons.map(p => (
-        <Person key={p.id} name={p.name} number={p.number} />
+        <Person
+          key={p.id}
+          name={p.name}
+          number={p.number}
+          onDelete={() => deletePerson(p.id)}
+        />
       ))}
     </div>
   );
