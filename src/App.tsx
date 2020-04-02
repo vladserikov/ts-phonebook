@@ -9,13 +9,17 @@ const App: React.FC = () => {
   const [state, setState] = useState<PersonType[]>([]);
   const [notification, setNotification] = useState<string | null>(null);
 
+  const notificationMessage = (message: string | null) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
   useEffect(() => {
     services.getAll().then(returnData => {
-      setNotification("data request");
+      notificationMessage("data request");
       setState(returnData);
-      setTimeout(() => {
-        setNotification(null);
-      }, 2000);
     });
   }, []);
 
@@ -43,10 +47,7 @@ const App: React.FC = () => {
           );
         } catch (e) {
           console.log(e);
-          setNotification("don`t edit phone");
-          setTimeout(() => {
-            setNotification(null);
-          }, 3000);
+          notificationMessage("don`t edit phone");
         }
       }
 
@@ -58,15 +59,11 @@ const App: React.FC = () => {
       setState(state.concat(person));
     } catch (e) {
       console.log(e);
-      setNotification("not add phone");
-      setTimeout(() => {
-        setNotification(null);
-      }, 3000);
+      notificationMessage("not add phone");
     }
     return;
   };
 
-  // console.log(state);
   return (
     <div>
       <h2>phonebook</h2>
