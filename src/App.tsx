@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PersonType } from "./types";
+import { PersonType, PersonBase } from "./types";
 import PersonForm from "./components/PersonForm";
 import services from "./services/person";
 import Persons from "./components/Persons";
@@ -19,13 +19,51 @@ const App: React.FC = () => {
     });
   }, []);
 
-  const addPerson = ({ name, number }: PersonType) => {
+  const addPerson = async ({ name, number }: PersonBase) => {
     const newPerson = {
       name,
       number
     };
 
-    setState(state.concat(newPerson));
+    const checkPerson: PersonType | undefined = state.find(
+      p => p.name === newPerson.name
+    );
+
+    if (checkPerson) {
+      const question = window.confirm(
+        `${checkPerson.name} is alredy to phonebook, replace the od number whith a new one?`
+      );
+      const id: string = checkPerson.id;
+
+      if (question) {
+        try {
+          const updatePerson: PersonType = await services.update(id, newPerson);
+          setState(
+            state.map(person => (person.id === id ? updatePerson : person))
+          );
+        } catch (e) {
+          console.log(e);
+          setNotification("don`t edit phone");
+          setTimeout(() => {
+            setNotification(null);
+          }, 3000);
+        }
+      }
+
+      return;
+    }
+
+    try {
+      const person: PersonType = await services.create(newPerson);
+      setState(state.concat(person));
+    } catch (e) {
+      console.log(e);
+      setNotification("not add phone");
+      setTimeout(() => {
+        setNotification(null);
+      }, 3000);
+    }
+    return;
   };
 
   // console.log(state);

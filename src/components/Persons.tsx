@@ -10,7 +10,7 @@ const Persons: React.FC<Persons> = ({ persons }) => {
   return (
     <div>
       {persons.map(p => (
-        <Person key={p.name} name={p.name} number={p.number} />
+        <Person key={p.id} name={p.name} number={p.number} />
       ))}
     </div>
   );

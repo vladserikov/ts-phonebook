@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { PersonType } from "../types";
+import { PersonBase } from "../types";
 
 type Props = {
-  addPerson: (obj: PersonType) => void;
+  addPerson: (obj: PersonBase) => void;
 };
 
 const PersonForm: React.FC<Props> = ({ addPerson }) => {
@@ -15,6 +15,8 @@ const PersonForm: React.FC<Props> = ({ addPerson }) => {
       return;
     }
     addPerson({ name, number });
+    setName("");
+    setNumber("");
   };
   return (
     <form onSubmit={sendData}>

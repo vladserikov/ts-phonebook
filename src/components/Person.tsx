@@ -1,7 +1,7 @@
 import React from "react";
-import { PersonType } from "../types";
+import { PersonBase } from "../types";
 
-const Person: React.FC<PersonType> = ({ name, number }) => {
+const Person: React.FC<PersonBase> = ({ name, number }) => {
   return (
     <div>
       {name} {number}
